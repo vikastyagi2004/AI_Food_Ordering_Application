@@ -8,7 +8,8 @@ import Footer from "./components/layout/Footer";
 import Menu from "./components/Menu";
 import { loadUser } from "./redux/actions/userActions";
 import store from "./redux/store";
-import Login from "./components/user/Login";
+// import Login from "./components/user/Login";
+import Login, { ForgotPassword } from "./components/user/Login";
 import Register from "./components/user/Register";
 import Profile from "./components/user/Profile";
 import UpdateProfile from "./components/user/UpdateProfile";
@@ -45,10 +46,11 @@ function App() {
               {/* user */}
               <Route path="/users/login" element={<Login />} />
               <Route path="/users/signup" element={<Register />} />
+              <Route path="/users/forgetPassword" element={<ForgotPassword />} />
               <Route path="/users/me" element={<Profile />} />
               <Route path="/users/me/update" element={<UpdateProfile />} />
 
-              {/* <Route path="/user/forgetPassword" element={<ForgotPassword/>}/>
+              {/* <Route path="/users/forgotPassword" element={<ForgotPassword/>}/>
               <Route path="/users/resetPassword/:token" element={<NewPassword/>}/> */}
 
               {/* cart */}

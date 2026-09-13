@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Loader from "../layout/Loader";
@@ -83,4 +84,74 @@ const Login = () => {
   );
 };
 
+export { Login };
+// export default Login;
+
+const ForgotPassword = () => {
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  // const submitHandler = (e) => {
+  //   e.preventDefault();
+
+  //   // Your forgot password API/action will go here
+  //   console.log("Forgot password for:", email);
+
+  const submitHandler = async (e) => {
+  e.preventDefault();
+
+  try {
+    setLoading(true);
+
+    const { data } = await axios.post(
+      "http://localhost:8080/api/v1/users/forgotPassword",
+      { email }
+    );
+
+    toast.success(data.message || "Reset link sent to your email");
+  } catch (error) {
+    toast.error(
+      error.response?.data?.message || "Unable to send reset link"
+    );
+  } finally {
+    setLoading(false);
+  }
+  };
+
+  return (
+    <div className="row wrapper">
+      <div className="col-10 col-lg-5">
+        <form className="shadow-lg" onSubmit={submitHandler}>
+          <h1 className="mb-3">Forgot Password</h1>
+
+          <div className="form-group">
+            <label>Email</label>
+
+            <input
+              type="email"
+              className="form-control"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="btn btn-block py-3"
+            disabled={loading}
+          >
+            SEND RESET LINK
+          </button>
+
+          <Link to="/users/login" className="float-right mt-3">
+            Back to Login
+          </Link>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export { ForgotPassword };
 export default Login;
