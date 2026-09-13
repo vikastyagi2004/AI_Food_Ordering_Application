@@ -90,7 +90,7 @@ export const updateProfile = (userData) => async (dispatch) => {
 //logout
 export const logout = () => async (dispatch) => {
   try {
-    await api.get("v1/users/logout");
+    await api.get("/v1/users/logout");
     dispatch(logoutSuccess());
   } catch (error) {
     dispatch(logoutFail(error.response?.data?.message));
