@@ -9,6 +9,8 @@ import { clearErrors } from "../../redux/slices/userSlice";
 
 import { toast } from "react-toastify";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -98,24 +100,22 @@ const ForgotPassword = () => {
   //   console.log("Forgot password for:", email);
 
   const submitHandler = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  try {
-    setLoading(true);
+    try {
+      setLoading(true);
 
-    const { data } = await axios.post(
-      "http://localhost:8080/api/v1/users/forgotPassword",
-      { email }
-    );
+      const { data } = await axios.post(
+        `${API_URL}/api/v1/users/forgotPassword`,
+        { email },
+      );
 
-    toast.success(data.message || "Reset link sent to your email");
-  } catch (error) {
-    toast.error(
-      error.response?.data?.message || "Unable to send reset link"
-    );
-  } finally {
-    setLoading(false);
-  }
+      toast.success(data.message || "Reset link sent to your email");
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Unable to send reset link");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

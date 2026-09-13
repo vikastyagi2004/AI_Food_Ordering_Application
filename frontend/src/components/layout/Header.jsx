@@ -1,25 +1,23 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Route, Routes } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { logout } from "../../redux/actions/userActions";
 
-import { toast } from "react-toastify"; // 
+import { toast } from "react-toastify"; //
 
 import Search from "./Search";
 import "../../App.css";
-
 
 const Header = () => {
   const dispatch = useDispatch();
 
   // Updated slice
   const { user, loading } = useSelector((state) => state.user);
-  const {cartItems} = useSelector((state => state.cart))
-
+  const { cartItems } = useSelector((state) => state.cart);
 
   const logoutHandler = () => {
     dispatch(logout());
-    toast.success("Logged out successfully"); 
+    toast.success("Logged out successfully");
   };
 
   return (
@@ -34,13 +32,7 @@ const Header = () => {
 
         {/* search */}
         <div className="col-12 col-md-6 mt-2 mt-md-0">
-          <Routes>
-            <Route path="/" element={<Search />} />
-            <Route
-              path="/eats/stores/search/:keyword"
-              element={<Search />}
-            />
-          </Routes>
+          <Search />
         </div>
 
         {/* right side */}
@@ -74,10 +66,7 @@ const Header = () => {
               </Link>
 
               <div className="dropdown-menu">
-                <Link
-                  className="dropdown-item"
-                  to="/eats/orders/me/myOrders"
-                >
+                <Link className="dropdown-item" to="/eats/orders/me/myOrders">
                   Orders
                 </Link>
 
@@ -95,11 +84,9 @@ const Header = () => {
               </div>
             </div>
           ) : (
-            !loading && (
-              <Link to="/users/login" className="btn ml-4" id="login_btn">
-                Login
-              </Link>
-            )
+            <Link to="/users/login" className="btn ml-4" id="login_btn">
+              Login
+            </Link>
           )}
         </div>
       </nav>
