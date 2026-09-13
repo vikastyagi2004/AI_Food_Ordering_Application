@@ -28,7 +28,7 @@ router.put("/admin/restaurants/:id/analyze", aiController.analyzeRestaurantRevie
 
 
 const restaurantController = require(
-  "../controllers/restaurantcontroller"
+  "../controllers/restaurantController"
 );
 
 router.put(

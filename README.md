@@ -1,6 +1,6 @@
-# 🍔 Food Delivery App
+# 🍔 Food Ordering App
 
-A full-stack **Food Delivery Web Application** built using the **MERN Stack (MongoDB, Express.js, React.js, Node.js)** during my **MERN Stack Development Internship at Web Stack Academy (WSA)**.
+A full-stack **Food Ordering Web Application** built using the **MERN Stack (MongoDB, Express.js, React.js, Node.js)** during my **MERN Stack Development Internship at Web Stack Academy (WSA)**.
 
 The application allows users to browse food items, manage their cart, place orders, and interact with the platform through a responsive web interface.
 
