@@ -1,95 +1,116 @@
 import {createSlice} from "@reduxjs/toolkit"
 
 //create initialstate
-const initialState ={
-    user:null,
-    loading:false,
-    isAuthenticated:false,
-    error:null,
-    isUpdated:false,
-    message: null,
-    success:null
-}
+const initialState = {
+  user: null,
+  loading: false,
+  loadUserLoading: false, // 👈 ADD THIS
+  isAuthenticated: false,
+  error: null,
+  isUpdated: false,
+  message: null,
+  success: null,
+};
 
 
 const userSlice = createSlice({
-    name: "user",
-    initialState,
-    reducers:{
-        //Login/register/load
-        loginRequest:(state) =>{
-            state.loading= true;
-            state.isAuthenticated= false
-        },
-        loginSuccess :(state,action) =>{
-            state.loading =false;
-            state.isAuthenticated =true
-            state.user = action.payload // store user data
-        },
-        loginFail: (state,action) =>{
-            state.loading =false;
-            state.isAuthenticated =false
-            state.user = null
-            state.error = action.payload
-        },
+  name: "user",
+  initialState,
 
-        //LOAD user fail
-        loadUserFail:(state,action) =>{
-            state.loading =false;
-            state.isAuthenticated =false
-            state.user = null,
-            state.error= action.payload
-        },
+  reducers: {
+    // LOGIN / REGISTER
+    loginRequest: (state) => {
+      state.loading = true;
+      state.isAuthenticated = false;
+    },
 
-        //Logout
-        logoutSuccess: (state)=>{
-             state.loading =false;
-            state.isAuthenticated =false
-            state.user = null
-        },
+    loginSuccess: (state, action) => {
+      state.loading = false;
+      state.isAuthenticated = true;
+      state.user = action.payload;
+    },
 
-        //Logout fail
-        logoutFail:(state,action)=>{
-            state.error = action.payload
-        },
-        
-        //Update Profile/ password
-        updateRequest:(state) =>{
-            state.loading =true;
-        },
-        updateSuccess:(state,action) =>{
-            state.loading =false,
-            state.isUpdated= action.payload
-        },
-        updateFail:(state,action)=>{
-            state.loading =false,
-            state.error= action.payload
-        },
-        updateReset:(state)=>{
-            state.isUpdated=false;
-        },
+    loginFail: (state, action) => {
+      state.loading = false;
+      state.isAuthenticated = false;
+      state.user = null;
+      state.error = action.payload;
+    },
 
-        //clear Error
-        clearErrors:(state) =>{
-            state.error = null
-        }
-    }
+    // LOAD USER
+    loadUserRequest: (state) => {
+      state.loadUserLoading = true;
+    },
 
-})
+    loadUserSuccess: (state, action) => {
+      state.loadUserLoading = false;
+      state.isAuthenticated = true;
+      state.user = action.payload;
+    },
+
+    loadUserFail: (state, action) => {
+      state.loadUserLoading = false;
+      state.isAuthenticated = false;
+      state.user = null;
+      state.error = action.payload;
+    },
+
+    // LOGOUT
+    logoutSuccess: (state) => {
+      state.loading = false;
+      state.isAuthenticated = false;
+      state.user = null;
+    },
+
+    logoutFail: (state, action) => {
+      state.error = action.payload;
+    },
+
+    // UPDATE PROFILE / PASSWORD
+    updateRequest: (state) => {
+      state.loading = true;
+    },
+
+    updateSuccess: (state, action) => {
+      state.loading = false;
+      state.isUpdated = action.payload;
+    },
+
+    updateFail: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+
+    updateReset: (state) => {
+      state.isUpdated = false;
+    },
+
+    // CLEAR ERRORS
+    clearErrors: (state) => {
+      state.error = null;
+    },
+  },
+});
 
 
 export const {
-    loginRequest,
-    loginSuccess,
-    loginFail,
-    loadUserFail,
-    logoutSuccess,
-    logoutFail,
-    updateRequest,
-    updateSuccess,
-    updateFail,
-    updateReset,
-    clearErrors
-} = userSlice.actions
+  loginRequest,
+  loginSuccess,
+  loginFail,
+
+  loadUserRequest,   // 👈 ADD
+  loadUserSuccess,   // 👈 ADD
+  loadUserFail,
+
+  logoutSuccess,
+  logoutFail,
+
+  updateRequest,
+  updateSuccess,
+  updateFail,
+  updateReset,
+
+  clearErrors,
+} = userSlice.actions;
 
 export default userSlice.reducer

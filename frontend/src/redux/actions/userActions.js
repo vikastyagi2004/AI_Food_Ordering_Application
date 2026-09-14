@@ -2,6 +2,8 @@
 
 import api from "../../utils/api";
 import {
+  loadUserRequest,
+  loadUserSuccess,
   loginRequest,
   loginSuccess,
   loginFail,
@@ -26,8 +28,14 @@ export const login = (email, password) => async (dispatch) => {
     });
     dispatch(loginSuccess(data.data.user));
   } catch (error) {
-    dispatch(loginFail("login Failed "));
-  }
+  console.log("Login error:", error.response);
+
+  dispatch(
+    loginFail(
+      error.response?.data?.message || "Login failed"
+    )
+  );
+}
 };
 
 //Register
@@ -46,29 +54,22 @@ export const register = (userData) => async (dispatch) => {
 
 //load user
 export const loadUser = () => async (dispatch) => {
-  // try{
-  //     dispatch(loginRequest())
-
-  //     const {data} = await api.get("/v1/users/me")
-
-  //     dispatch(loginSuccess(data.user))
-
-  // }catch(error){
-  //     dispatch(loadUserFail(error.response?.data?.message))
-  // }
-
   try {
-    dispatch(loginRequest());
+    dispatch(loadUserRequest());
 
     const { data } = await api.get("/v1/users/me");
 
     console.log("loadUser response:", data);
 
-    dispatch(loginSuccess(data.user));
+    dispatch(loadUserSuccess(data.user));
   } catch (error) {
     console.log("loadUser error:", error.response);
 
-    dispatch(loadUserFail(error.response?.data?.message));
+    dispatch(
+      loadUserFail(
+        error.response?.data?.message || "User not logged in"
+      )
+    );
   }
 };
 
